@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+XML Schema for the NCL360 Language
+
+Public URI: http://www.ncl.org.br/NCL360/modules/Layout.xsd
+Author: MultiSenS Lab - Immersive Multissensory Multimedia Applications and Spaces Lab
+Revision: 23/06/2024
+-->
+
+<schema targetNamespace="http://www.ncl.org.br/NCL360/Layout"
+        xmlns="http://www.ncl.org.br/NCL360/Layout"
+        elementFormDefault="unqualified">
+
+
+
+<simpleType name="PINVAL">
+   <restriction base="string">
+      <enumeration value="environment"/>
+      <enumeration value="camera"/>
+   </restriction>
+</simpleType>
+
+<simpleType name="SOUNDTYPEVAL">
+   <restriction base="string">
+      <enumeration value="2D"/>
+      <enumeration value="3D"/>
+   </restriction>
+</simpleType>
+
+<simpleType name="Decimal01">
+   <restriction base="decimal">
+      <minInclusive value="0"/>
+      <maxInclusive value="1"/>
+   </restriction>
+</simpleType>
+
+<simpleType name="PROJECTIONTYPE">
+   <restriction base="string">
+	  <enumeration value="equirectangular"/>
+	  <enumeration value="cylindrical-equal-area"/>
+	  <enumeration value="icosahedron"/>
+	  <enumeration value="cubemap"/>
+	  <enumeration value="adjusted-cubemap"/>
+	  <enumeration value="equiangular-cubemap"/>
+	  <enumeration value="rotated-sphere"/>
+   </restriction>
+</simpleType>
+
+
+<complexType name="regionType">
+   <attribute name="id" type="ID" use="required"/>
+   <attribute name="polar" type="decimal" use="required"/>
+   <attribute name="azimuthal" type="decimal" use="required"/>
+   <attribute name="width" type="decimal" use="required"/>
+   <attribute name="height" type="decimal" use="required"/>
+   <attribute name="radius" type="decimal" use="required"/>
+   <attribute name="zIndex" type="integer" use="optional"/>
+   <attribute name="pin" type="PINVAL" use="optional" default="environment"/>
+</complexType>
+
+
+<complexType name="descriptorParamType">
+   <attribute name="name" type="string" use="required"/>
+   <attribute name="value" type="string" use="required"/>
+</complexType>
+
+
+<complexType name="descriptorType">
+   <attribute name="id" type="ID" use="required"/>
+   <attribute name="region" type="IDREF" use="required"/>
+   <attribute name="dur" type="decimal" use="optional"/>
+   <attribute name="soundType" type="SOUNDTYPEVAL" use="optional" default="2D"/>
+   <attribute name="volume" type="Decimal01" use="optional"/>
+   <attribute name="project" type="PROJECTIONTYPE" use="optional"/>
+   <sequence>
+      <element name="descriptorParam" type="descriptorParamType" minOccurs="0" maxOccurs="unbounded"/>/>
+   </sequence>
+</complexType>
+
+</schema>

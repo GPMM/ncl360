@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+XML Schema for the NCL360 Language
+
+Public URI: http://www.ncl.org.br/NCL360/profiles/NCL360.xsd
+Author: MultiSenS Lab - Immersive Multissensory Multimedia Applications and Spaces Lab
+Revision: 23/06/2024
+-->
+
+<schema targetNamespace="http://www.ncl.org.br/NCL360/NCL360Profile"
+        xmlns="http://www.ncl.org.br/NCL360/NCL360Profile"
+        elementFormDefault="unqualified">
+
+<!-- import the definitions in the modules namespaces -->
+<import namespace="http://www.ncl.org.br/NCL360/Media"
+        schemaLocation="http://www.achernar.eic.cefet-rj.br/ncl360/modules/Media.xsd"/>
+<import namespace="http://www.ncl.org.br/NCL360/Link"
+        schemaLocation="http://www.achernar.eic.cefet-rj.br/ncl360/modules/Link.xsd"/>
+<import namespace="http://www.ncl.org.br/NCL360/Layout"
+        schemaLocation="http://www.achernar.eic.cefet-rj.br/ncl360/modules/Layout.xsd"/>
+
+
+
+<complexType name="headType">
+   <sequence>
+      <element name="region" type="regionType" minOccurs="0" maxOccurs="unbounded"/>
+      <element name="descriptor" type="descriptorType" minOccurs="0" maxOccurs="unbounded"/>
+   </sequence>
+</complexType>
+
+
+
+<complexType name="portType">
+   <attribute name="component" type="IDREF" use="required"/>
+   <attribute name="interface" type="IDREF" use="optional"/>
+</complexType>
+
+
+<complexType name="bodyType">
+   <sequence>
+      <element name="port" type="portType" minOccurs="1"  maxOccurs="unbounded"/>
+      <element name="media" type="mediaType" minOccurs="1" maxOccurs="unbounded"/>
+      <element name="link" type="linkType" minOccurs="1" maxOccurs="unbounded"/>
+   </sequence>
+</complexType>
+
+
+
+<element name="ncl360">
+   <complexType>
+      <attribute name="id" type="ID" use="required"/>
+      <sequence>
+         <element name="head" type="headType" minOccurs="1" maxOccurs="1"/>
+         <element name="body" type="bodyType" minOccurs="1" maxOccurs="1"/>
+      </sequence>
+   </complexType>
+</element>
+
+</schema>

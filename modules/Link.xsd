@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+XML Schema for the NCL360 Language
+
+Public URI: http://www.ncl.org.br/NCL360/modules/Link.xsd
+Author: MultiSenS Lab - Immersive Multissensory Multimedia Applications and Spaces Lab
+Revision: 23/06/2024
+-->
+
+<schema targetNamespace="http://www.ncl.org.br/NCL360/Link"
+        xmlns="http://www.ncl.org.br/NCL360/Link"
+        elementFormDefault="unqualified">
+
+
+<simpleType name="CONDTR">
+   <restriction base="string">
+      <enumeration value="onBegin"/>
+      <enumeration value="onEnd"/>
+	  <enumeration value="onAbort"/>
+      <enumeration value="onPause"/>
+      <enumeration value="onResume"/>
+      <enumeration value="onEndPreparation"/>
+      <enumeration value="onBeginView"/>
+      <enumeration value="onEndView"/>
+   </restriction>
+</simpleType>
+
+<simpleType name="ACTTR">
+   <restriction base="string">
+      <enumeration value="start"/>
+      <enumeration value="stop"/>
+      <enumeration value="abort"/>
+      <enumeration value="pause"/>
+      <enumeration value="resume"/>
+      <enumeration value="prepare"/>
+   </restriction>
+</simpleType>
+
+
+
+<complexType name="TriggerConditionType">
+   <attribute name="component" type="IDREF" use="required"/>
+   <attribute name="interface" type="IDREF" use="optional"/>
+   <attribute name="role" type="CONDTR" use="required"/>
+</complexType>
+
+<complexType name="actionType">
+   <attribute name="component" type="IDREF" use="required"/>
+   <attribute name="interface" type="IDREF" use="optional"/>
+   <attribute name="role" type="ACTTR" use="required"/>
+   <attribute name="delay" type="positiveInteger" use="optional" default="0"/>
+</complexType>
+
+
+<complexType name="LinkType">
+   <sequence>
+      <element name="bind" type="TriggerConditionType" minOccurs="1" maxOccurs="1"/>
+      <element name="bind" type="actionType" minOccurs="1" maxOccurs="unbounded"/>
+   </sequence>
+</complexType>
+
+</schema>
