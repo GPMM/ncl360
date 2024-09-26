@@ -4,12 +4,14 @@ XML Schema for the NCL360 Language
 
 Public URI: http://www.ncl.org.br/NCL360/modules/Link.xsd
 Author: MultiSenS Lab - Immersive Multissensory Multimedia Applications and Spaces Lab
-Revision: 23/06/2024
+Revision: 26/09/2024
 -->
 
 <schema targetNamespace="http://www.ncl.org.br/NCL360/Link"
-        xmlns="http://www.ncl.org.br/NCL360/Link"
-        elementFormDefault="unqualified">
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:link="http://www.ncl.org.br/NCL360/Link"
+        elementFormDefault="unqualified"
+        attributeFormDefault="unqualified">
 
 
 <simpleType name="CONDTR">
@@ -41,22 +43,14 @@ Revision: 23/06/2024
 <complexType name="TriggerConditionType">
    <attribute name="component" type="IDREF" use="required"/>
    <attribute name="interface" type="IDREF" use="optional"/>
-   <attribute name="role" type="CONDTR" use="required"/>
+   <attribute name="role" type="link:CONDTR" use="required"/>
 </complexType>
 
 <complexType name="actionType">
    <attribute name="component" type="IDREF" use="required"/>
    <attribute name="interface" type="IDREF" use="optional"/>
-   <attribute name="role" type="ACTTR" use="required"/>
-   <attribute name="delay" type="positiveInteger" use="optional" default="0"/>
-</complexType>
-
-
-<complexType name="LinkType">
-   <sequence>
-      <element name="bind" type="TriggerConditionType" minOccurs="1" maxOccurs="1"/>
-      <element name="bind" type="actionType" minOccurs="1" maxOccurs="unbounded"/>
-   </sequence>
+   <attribute name="role" type="link:ACTTR" use="required"/>
+   <attribute name="delay" type="nonNegativeInteger" use="optional" default="0"/>
 </complexType>
 
 </schema>

@@ -4,27 +4,39 @@ XML Schema for the NCL360 Language
 
 Public URI: http://www.ncl.org.br/NCL360/profiles/NCL360.xsd
 Author: MultiSenS Lab - Immersive Multissensory Multimedia Applications and Spaces Lab
-Revision: 23/06/2024
+Revision: 26/09/2024
 -->
 
 <schema targetNamespace="http://www.ncl.org.br/NCL360/NCL360Profile"
-        xmlns="http://www.ncl.org.br/NCL360/NCL360Profile"
-        elementFormDefault="unqualified">
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:profile="http://www.ncl.org.br/NCL360/NCL360Profile"
+        xmlns:layout="http://www.ncl.org.br/NCL360/Layout"
+        xmlns:link="http://www.ncl.org.br/NCL360/Link"
+        xmlns:media="http://www.ncl.org.br/NCL360/Media"
+        elementFormDefault="qualified"
+        attributeFormDefault="unqualified">
 
 <!-- import the definitions in the modules namespaces -->
 <import namespace="http://www.ncl.org.br/NCL360/Media"
-        schemaLocation="http://www.achernar.eic.cefet-rj.br/ncl360/modules/Media.xsd"/>
+        schemaLocation="../modules/Media.xsd"/>
 <import namespace="http://www.ncl.org.br/NCL360/Link"
-        schemaLocation="http://www.achernar.eic.cefet-rj.br/ncl360/modules/Link.xsd"/>
+        schemaLocation="../modules/Link.xsd"/>
 <import namespace="http://www.ncl.org.br/NCL360/Layout"
-        schemaLocation="http://www.achernar.eic.cefet-rj.br/ncl360/modules/Layout.xsd"/>
+        schemaLocation="../modules/Layout.xsd"/>
 
 
 
 <complexType name="headType">
    <sequence>
-      <element name="region" type="regionType" minOccurs="0" maxOccurs="unbounded"/>
-      <element name="descriptor" type="descriptorType" minOccurs="0" maxOccurs="unbounded"/>
+      <element name="region" type="layout:regionType" minOccurs="0" maxOccurs="unbounded"/>
+      <element name="descriptor" minOccurs="0" maxOccurs="unbounded">
+         <complexType>
+            <sequence>
+               <element name="descriptorParam" type="layout:descriptorParamType" minOccurs="0" maxOccurs="unbounded"/>
+            </sequence>
+            <attributeGroup ref="layout:descriptorAttrs"/>
+         </complexType>
+      </element>
    </sequence>
 </complexType>
 
@@ -35,12 +47,30 @@ Revision: 23/06/2024
    <attribute name="interface" type="IDREF" use="optional"/>
 </complexType>
 
+<element name="media">
+   <complexType>
+      <sequence>
+         <element name="area" type="media:areaType" minOccurs="0" maxOccurs="unbounded"/>
+      </sequence>
+      <attributeGroup ref="media:mediaAttrs"/>
+   </complexType>
+</element>
+
+<element name="link">
+   <complexType>
+      <sequence>
+         <element name="bind" type="link:TriggerConditionType" minOccurs="1" maxOccurs="1"/>
+         <element name="bind" type="link:actionType" minOccurs="1" maxOccurs="unbounded"/>
+      </sequence>
+   </complexType>
+</element>
 
 <complexType name="bodyType">
    <sequence>
-      <element name="port" type="portType" minOccurs="1"  maxOccurs="unbounded"/>
-      <element name="media" type="mediaType" minOccurs="1" maxOccurs="unbounded"/>
-      <element name="link" type="linkType" minOccurs="1" maxOccurs="unbounded"/>
+      <element name="port" type="profile:portType" minOccurs="0"  maxOccurs="unbounded"/>
+      <element ref="profile:media" minOccurs="1" maxOccurs="unbounded"/>
+
+      <element ref="profile:link" minOccurs="0" maxOccurs="unbounded"/>
    </sequence>
 </complexType>
 
@@ -48,11 +78,11 @@ Revision: 23/06/2024
 
 <element name="ncl360">
    <complexType>
-      <attribute name="id" type="ID" use="required"/>
       <sequence>
-         <element name="head" type="headType" minOccurs="1" maxOccurs="1"/>
-         <element name="body" type="bodyType" minOccurs="1" maxOccurs="1"/>
+         <element name="head" type="profile:headType" minOccurs="1" maxOccurs="1"/>
+         <element name="body" type="profile:bodyType" minOccurs="1" maxOccurs="1"/>
       </sequence>
+      <attribute name="id" type="ID" use="required"/>
    </complexType>
 </element>
 
