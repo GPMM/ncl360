@@ -4,53 +4,52 @@ XML Schema for the NCL360 Language
 
 Public URI: http://www.ncl.org.br/NCL360/modules/Link.xsd
 Author: MultiSenS Lab - Immersive Multissensory Multimedia Applications and Spaces Lab
-Revision: 26/09/2024
+Revision: 02/10/2024
 -->
 
-<schema targetNamespace="http://www.ncl.org.br/NCL360/Link"
-        xmlns="http://www.w3.org/2001/XMLSchema"
-        xmlns:link="http://www.ncl.org.br/NCL360/Link"
-        elementFormDefault="unqualified"
-        attributeFormDefault="unqualified">
+<xs:schema targetNamespace="http://www.ncl.org.br/NCL360/Link"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:link="http://www.ncl.org.br/NCL360/Link"
+           elementFormDefault="qualified">
 
 
-<simpleType name="CONDTR">
-   <restriction base="string">
-      <enumeration value="onBegin"/>
-      <enumeration value="onEnd"/>
-	  <enumeration value="onAbort"/>
-      <enumeration value="onPause"/>
-      <enumeration value="onResume"/>
-      <enumeration value="onEndPreparation"/>
-      <enumeration value="onBeginView"/>
-      <enumeration value="onEndView"/>
-   </restriction>
-</simpleType>
+<xs:simpleType name="CONDTR">
+   <xs:restriction base="xs:string">
+      <xs:enumeration value="onBegin"/>
+      <xs:enumeration value="onEnd"/>
+	   <xs:enumeration value="onAbort"/>
+      <xs:enumeration value="onPause"/>
+      <xs:enumeration value="onResume"/>
+      <xs:enumeration value="onEndPreparation"/>
+      <xs:enumeration value="onBeginView"/>
+      <xs:enumeration value="onEndView"/>
+   </xs:restriction>
+</xs:simpleType>
 
-<simpleType name="ACTTR">
-   <restriction base="string">
-      <enumeration value="start"/>
-      <enumeration value="stop"/>
-      <enumeration value="abort"/>
-      <enumeration value="pause"/>
-      <enumeration value="resume"/>
-      <enumeration value="prepare"/>
-   </restriction>
-</simpleType>
+<xs:simpleType name="ACTTR">
+   <xs:restriction base="xs:string">
+      <xs:enumeration value="start"/>
+      <xs:enumeration value="stop"/>
+      <xs:enumeration value="abort"/>
+      <xs:enumeration value="pause"/>
+      <xs:enumeration value="resume"/>
+      <xs:enumeration value="prepare"/>
+   </xs:restriction>
+</xs:simpleType>
 
 
 
-<complexType name="TriggerConditionType">
-   <attribute name="component" type="IDREF" use="required"/>
-   <attribute name="interface" type="IDREF" use="optional"/>
-   <attribute name="role" type="link:CONDTR" use="required"/>
-</complexType>
+<xs:complexType name="TriggerConditionType">
+   <xs:attribute name="component" type="xs:IDREF" use="required"/>
+   <xs:attribute name="interface" type="xs:IDREF" use="optional"/>
+   <xs:attribute name="role" type="link:CONDTR" use="required"/>
+</xs:complexType>
 
-<complexType name="actionType">
-   <attribute name="component" type="IDREF" use="required"/>
-   <attribute name="interface" type="IDREF" use="optional"/>
-   <attribute name="role" type="link:ACTTR" use="required"/>
-   <attribute name="delay" type="nonNegativeInteger" use="optional" default="0"/>
-</complexType>
+<xs:complexType name="actionType">
+   <xs:attribute name="component" type="xs:IDREF" use="required"/>
+   <xs:attribute name="interface" type="xs:IDREF" use="optional"/>
+   <xs:attribute name="role" type="link:ACTTR" use="required"/>
+   <xs:attribute name="delay" type="xs:nonNegativeInteger" use="optional" default="0"/>
+</xs:complexType>
 
-</schema>
+</xs:schema>

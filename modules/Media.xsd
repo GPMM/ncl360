@@ -4,28 +4,27 @@ XML Schema for the NCL360 Language
 
 Public URI: http://www.ncl.org.br/NCL360/modules/Media.xsd
 Author: MultiSenS Lab - Immersive Multissensory Multimedia Applications and Spaces Lab
-Revision: 26/09/2024
+Revision: 02/10/2024
 -->
 
-<schema targetNamespace="http://www.ncl.org.br/NCL360/Media"
-        xmlns="http://www.w3.org/2001/XMLSchema"
-        xmlns:media="http://www.ncl.org.br/NCL360/Media"
-        elementFormDefault="unqualified"
-        attributeFormDefault="unqualified">
+<xs:schema targetNamespace="http://www.ncl.org.br/NCL360/Media"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:media="http://www.ncl.org.br/NCL360/Media"
+           elementFormDefault="qualified">
 
 
 
-<complexType name="areaType">
-   <attribute name="id" type="ID" use="required"/>
-   <attribute name="begin" type="string" use="optional"/>
-   <attribute name="end" type="string" use="optional"/>
-</complexType>
+<xs:complexType name="areaType">
+   <xs:attribute name="id" type="xs:ID" use="required"/>
+   <xs:attribute name="begin" type="xs:string" use="optional"/>
+   <xs:attribute name="end" type="xs:string" use="optional"/>
+</xs:complexType>
 
 
-<attributeGroup name="mediaAttrs">
-   <attribute name="id" type="ID" use="required"/>
-   <attribute name="src" type="anyURI" use="required"/>
-   <attribute name="descriptor" type="string" use="required"/>
-</attributeGroup>
+<xs:attributeGroup name="mediaAttrs">
+   <xs:attribute name="id" type="xs:ID" use="required"/>
+   <xs:attribute name="src" type="xs:anyURI" use="required"/>
+   <xs:attribute name="descriptor" type="xs:string" use="required"/>
+</xs:attributeGroup>
 
-</schema>
+</xs:schema>

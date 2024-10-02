@@ -4,76 +4,75 @@ XML Schema for the NCL360 Language
 
 Public URI: http://www.ncl.org.br/NCL360/modules/Layout.xsd
 Author: MultiSenS Lab - Immersive Multissensory Multimedia Applications and Spaces Lab
-Revision: 26/09/2024
+Revision: 02/10/2024
 -->
 
-<schema targetNamespace="http://www.ncl.org.br/NCL360/Layout"
-        xmlns="http://www.w3.org/2001/XMLSchema"
-        xmlns:layout="http://www.ncl.org.br/NCL360/Layout"
-        elementFormDefault="unqualified"
-        attributeFormDefault="unqualified">
+<xs:schema targetNamespace="http://www.ncl.org.br/NCL360/Layout"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:layout="http://www.ncl.org.br/NCL360/Layout"
+           elementFormDefault="qualified">
 
 
 
-<simpleType name="PINVAL">
-   <restriction base="string">
-      <enumeration value="environment"/>
-      <enumeration value="camera"/>
-   </restriction>
-</simpleType>
+<xs:simpleType name="PINVAL">
+   <xs:restriction base="xs:string">
+      <xs:enumeration value="environment"/>
+      <xs:enumeration value="camera"/>
+   </xs:restriction>
+</xs:simpleType>
 
-<simpleType name="SOUNDTYPEVAL">
-   <restriction base="string">
-      <enumeration value="2D"/>
-      <enumeration value="3D"/>
-   </restriction>
-</simpleType>
+<xs:simpleType name="SOUNDTYPEVAL">
+   <xs:restriction base="xs:string">
+      <xs:enumeration value="2D"/>
+      <xs:enumeration value="3D"/>
+   </xs:restriction>
+</xs:simpleType>
 
-<simpleType name="Decimal01">
-   <restriction base="decimal">
-      <minInclusive value="0"/>
-      <maxInclusive value="1"/>
-   </restriction>
-</simpleType>
+<xs:simpleType name="Decimal01">
+   <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="1"/>
+   </xs:restriction>
+</xs:simpleType>
 
-<simpleType name="PROJECTIONTYPE">
-   <restriction base="string">
-	  <enumeration value="equirectangular"/>
-	  <enumeration value="cylindrical-equal-area"/>
-	  <enumeration value="icosahedron"/>
-	  <enumeration value="cubemap"/>
-	  <enumeration value="adjusted-cubemap"/>
-	  <enumeration value="equiangular-cubemap"/>
-	  <enumeration value="rotated-sphere"/>
-   </restriction>
-</simpleType>
-
-
-<complexType name="regionType">
-   <attribute name="id" type="ID" use="required"/>
-   <attribute name="polar" type="decimal" use="required"/>
-   <attribute name="azimuthal" type="decimal" use="required"/>
-   <attribute name="width" type="decimal" use="required"/>
-   <attribute name="height" type="decimal" use="required"/>
-   <attribute name="radius" type="decimal" use="required"/>
-   <attribute name="zIndex" type="integer" use="optional"/>
-   <attribute name="pin" type="layout:PINVAL" use="optional" default="environment"/>
-</complexType>
+<xs:simpleType name="PROJECTIONTYPE">
+   <xs:restriction base="xs:string">
+	   <xs:enumeration value="equirectangular"/>
+	   <xs:enumeration value="cylindrical-equal-area"/>
+	   <xs:enumeration value="icosahedron"/>
+	   <xs:enumeration value="cubemap"/>
+	   <xs:enumeration value="adjusted-cubemap"/>
+	   <xs:enumeration value="equiangular-cubemap"/>
+	   <xs:enumeration value="rotated-sphere"/>
+   </xs:restriction>
+</xs:simpleType>
 
 
-<complexType name="descriptorParamType">
-   <attribute name="name" type="string" use="required"/>
-   <attribute name="value" type="string" use="required"/>
-</complexType>
+<xs:complexType name="regionType">
+   <xs:attribute name="id" type="xs:ID" use="required"/>
+   <xs:attribute name="polar" type="xs:decimal" use="required"/>
+   <xs:attribute name="azimuthal" type="xs:decimal" use="required"/>
+   <xs:attribute name="width" type="xs:decimal" use="required"/>
+   <xs:attribute name="height" type="xs:decimal" use="required"/>
+   <xs:attribute name="radius" type="xs:decimal" use="required"/>
+   <xs:attribute name="zIndex" type="xs:integer" use="optional"/>
+   <xs:attribute name="pin" type="layout:PINVAL" use="optional" default="environment"/>
+</xs:complexType>
 
 
-<attributeGroup name="descriptorAttrs">
-   <attribute name="id" type="ID" use="required"/>
-   <attribute name="region" type="IDREF" use="required"/>
-   <attribute name="dur" type="decimal" use="optional"/>
-   <attribute name="soundType" type="layout:SOUNDTYPEVAL" use="optional" default="2D"/>
-   <attribute name="volume" type="layout:Decimal01" use="optional"/>
-   <attribute name="project" type="layout:PROJECTIONTYPE" use="optional"/>
-</attributeGroup>
+<xs:complexType name="descriptorParamType">
+   <xs:attribute name="name" type="xs:string" use="required"/>
+   <xs:attribute name="value" type="xs:string" use="required"/>
+</xs:complexType>
 
-</schema>
+
+<xs:attributeGroup name="descriptorAttrs">
+   <xs:attribute name="id" type="xs:ID" use="required"/>
+   <xs:attribute name="region" type="xs:IDREF" use="required"/>
+   <xs:attribute name="dur" type="xs:decimal" use="optional"/>
+   <xs:attribute name="soundType" type="layout:SOUNDTYPEVAL" use="optional" default="2D"/>
+   <xs:attribute name="volume" type="layout:Decimal01" use="optional"/>
+   <xs:attribute name="project" type="layout:PROJECTIONTYPE" use="optional"/>
+</xs:attributeGroup>
+
+</xs:schema>
