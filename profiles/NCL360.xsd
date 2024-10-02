@@ -7,83 +7,82 @@ Author: MultiSenS Lab - Immersive Multissensory Multimedia Applications and Spac
 Revision: 26/09/2024
 -->
 
-<schema targetNamespace="http://www.ncl.org.br/NCL360/NCL360Profile"
-        xmlns="http://www.w3.org/2001/XMLSchema"
-        xmlns:profile="http://www.ncl.org.br/NCL360/NCL360Profile"
-        xmlns:layout="http://www.ncl.org.br/NCL360/Layout"
-        xmlns:link="http://www.ncl.org.br/NCL360/Link"
-        xmlns:media="http://www.ncl.org.br/NCL360/Media"
-        elementFormDefault="qualified"
-        attributeFormDefault="unqualified">
+<xs:schema targetNamespace="http://www.ncl.org.br/NCL360/NCL360Profile"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:profile="http://www.ncl.org.br/NCL360/NCL360Profile"
+           xmlns:layout="http://www.ncl.org.br/NCL360/Layout"
+           xmlns:link="http://www.ncl.org.br/NCL360/Link"
+           xmlns:media="http://www.ncl.org.br/NCL360/Media"
+           elementFormDefault="qualified">
 
 <!-- import the definitions in the modules namespaces -->
-<import namespace="http://www.ncl.org.br/NCL360/Media"
-        schemaLocation="../modules/Media.xsd"/>
-<import namespace="http://www.ncl.org.br/NCL360/Link"
-        schemaLocation="../modules/Link.xsd"/>
-<import namespace="http://www.ncl.org.br/NCL360/Layout"
-        schemaLocation="../modules/Layout.xsd"/>
+<xs:import namespace="http://www.ncl.org.br/NCL360/Media"
+           schemaLocation="../modules/Media.xsd"/>
+<xs:import namespace="http://www.ncl.org.br/NCL360/Link"
+           schemaLocation="../modules/Link.xsd"/>
+<xs:import namespace="http://www.ncl.org.br/NCL360/Layout"
+           schemaLocation="../modules/Layout.xsd"/>
 
 
 
-<complexType name="headType">
-   <sequence>
-      <element name="region" type="layout:regionType" minOccurs="0" maxOccurs="unbounded"/>
-      <element name="descriptor" minOccurs="0" maxOccurs="unbounded">
-         <complexType>
-            <sequence>
-               <element name="descriptorParam" type="layout:descriptorParamType" minOccurs="0" maxOccurs="unbounded"/>
-            </sequence>
-            <attributeGroup ref="layout:descriptorAttrs"/>
-         </complexType>
-      </element>
-   </sequence>
-</complexType>
+<xs:complexType name="headType">
+   <xs:sequence>
+      <xs:element name="region" type="layout:regionType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="descriptor" minOccurs="0" maxOccurs="unbounded">
+         <xs:complexType>
+            <xs:sequence>
+               <xs:element name="descriptorParam" type="layout:descriptorParamType" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="layout:descriptorAttrs"/>
+         </xs:complexType>
+      </xs:element>
+   </xs:sequence>
+</xs:complexType>
 
 
 
-<complexType name="portType">
-   <attribute name="component" type="IDREF" use="required"/>
-   <attribute name="interface" type="IDREF" use="optional"/>
-</complexType>
+<xs:complexType name="portType">
+   <xs:attribute name="component" type="xs:IDREF" use="required"/>
+   <xs:attribute name="interface" type="xs:IDREF" use="optional"/>
+</xs:complexType>
 
-<element name="media">
-   <complexType>
-      <sequence>
-         <element name="area" type="media:areaType" minOccurs="0" maxOccurs="unbounded"/>
-      </sequence>
-      <attributeGroup ref="media:mediaAttrs"/>
-   </complexType>
-</element>
+<xs:element name="media">
+   <xs:complexType>
+      <xs:sequence>
+         <xs:element name="area" type="media:areaType" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="media:mediaAttrs"/>
+   </xs:complexType>
+</xs:element>
 
-<element name="link">
-   <complexType>
-      <sequence>
-         <element name="bind" type="link:TriggerConditionType" minOccurs="1" maxOccurs="1"/>
-         <element name="bind" type="link:actionType" minOccurs="1" maxOccurs="unbounded"/>
-      </sequence>
-   </complexType>
-</element>
+<xs:element name="link">
+   <xs:complexType>
+      <xs:sequence>
+         <xs:element name="bind" type="link:TriggerConditionType" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="bind" type="link:actionType" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:element>
 
-<complexType name="bodyType">
-   <sequence>
-      <element name="port" type="profile:portType" minOccurs="0"  maxOccurs="unbounded"/>
-      <element ref="profile:media" minOccurs="1" maxOccurs="unbounded"/>
+<xs:complexType name="bodyType">
+   <xs:sequence>
+      <xs:element name="port" type="profile:portType" minOccurs="0"  maxOccurs="unbounded"/>
+      <xs:element ref="profile:media" minOccurs="1" maxOccurs="unbounded"/>
 
-      <element ref="profile:link" minOccurs="0" maxOccurs="unbounded"/>
-   </sequence>
-</complexType>
+      <xs:element ref="profile:link" minOccurs="0" maxOccurs="unbounded"/>
+   </xs:sequence>
+</xs:complexType>
 
 
 
-<element name="ncl360">
-   <complexType>
-      <sequence>
-         <element name="head" type="profile:headType" minOccurs="1" maxOccurs="1"/>
-         <element name="body" type="profile:bodyType" minOccurs="1" maxOccurs="1"/>
-      </sequence>
-      <attribute name="id" type="ID" use="required"/>
-   </complexType>
-</element>
+<xs:element name="ncl360">
+   <xs:complexType>
+      <xs:sequence>
+         <xs:element name="head" type="profile:headType" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="body" type="profile:bodyType" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:ID" use="required"/>
+   </xs:complexType>
+</xs:element>
 
-</schema>
+</xs:schema>
