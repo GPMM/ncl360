@@ -4,15 +4,32 @@ XML Schema for the NCL360 Language
 
 Public URI: http://www.ncl.org.br/NCL360/modules/Layout.xsd
 Author: MultiSenS Lab - Immersive Multissensory Multimedia Applications and Spaces Lab
-Revision: 02/10/2024
+Revision: 08/10/2024
 -->
 
-<xs:schema targetNamespace="http://www.ncl.org.br/NCL360/Layout"
+<xs:schema targetNamespace="http://www.ncl.org.br/NCL360/NCL360Layout"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:layout="http://www.ncl.org.br/NCL360/Layout"
+           xmlns:layout="http://www.ncl.org.br/NCL360/NCL360Layout"
+           xmlns:ncldescriptor="http://www.ncl.org.br/NCL4.0/Descriptor"
            elementFormDefault="qualified">
 
 
+
+<xs:import namespace="http://www.ncl.org.br/NCL4.0/Descriptor"
+           schemaLocation="http://www.ncl.org.br/NCL4.0/modules/NCL30Descriptor.xsd"/>
+
+
+<xs:simpleType name="Degrees">
+   <xs:restriction base="xs:string">
+      <xs:pattern value="[-+]?[0-9]*\.?[0-9]+d"/>
+   </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="Meters">
+   <xs:restriction base="xs:string">
+      <xs:pattern value="[-+]?[0-9]*\.?[0-9]+m"/>
+   </xs:restriction>
+</xs:simpleType>
 
 <xs:simpleType name="PINVAL">
    <xs:restriction base="xs:string">
@@ -50,29 +67,36 @@ Revision: 02/10/2024
 
 <xs:complexType name="regionType">
    <xs:attribute name="id" type="xs:ID" use="required"/>
-   <xs:attribute name="polar" type="xs:decimal" use="required"/>
-   <xs:attribute name="azimuthal" type="xs:decimal" use="required"/>
-   <xs:attribute name="width" type="xs:decimal" use="required"/>
-   <xs:attribute name="height" type="xs:decimal" use="required"/>
-   <xs:attribute name="radius" type="xs:decimal" use="required"/>
+   <xs:attribute name="polar" type="layout:Degrees" use="required"/>
+   <xs:attribute name="azimuthal" type="layout:Degrees" use="required"/>
+   <xs:attribute name="width" type="layout:Meters" use="required"/>
+   <xs:attribute name="height" type="layout:Meters" use="required"/>
+   <xs:attribute name="radius" type="layout:Meters" use="required"/>
    <xs:attribute name="zIndex" type="xs:integer" use="optional"/>
    <xs:attribute name="pin" type="layout:PINVAL" use="optional" default="environment"/>
 </xs:complexType>
 
 
-<xs:complexType name="descriptorParamType">
-   <xs:attribute name="name" type="xs:string" use="required"/>
-   <xs:attribute name="value" type="xs:string" use="required"/>
-</xs:complexType>
-
-
 <xs:attributeGroup name="descriptorAttrs">
    <xs:attribute name="id" type="xs:ID" use="required"/>
-   <xs:attribute name="region" type="xs:IDREF" use="required"/>
+   <xs:attribute name="region" type="xs:string" use="required"/>
    <xs:attribute name="dur" type="xs:decimal" use="optional"/>
    <xs:attribute name="soundType" type="layout:SOUNDTYPEVAL" use="optional" default="2D"/>
    <xs:attribute name="volume" type="layout:Decimal01" use="optional"/>
-   <xs:attribute name="project" type="layout:PROJECTIONTYPE" use="optional"/>
+   <xs:attribute name="projection" type="layout:PROJECTIONTYPE" use="optional"/>
 </xs:attributeGroup>
+
+
+<xs:element name="region" type="layout:regionType"/>
+<xs:element name="descriptorParam" type="ncldescriptor:descriptorParamPrototype"/>
+
+<xs:element name="descriptor">
+   <xs:complexType>
+      <xs:sequence>
+         <xs:element ref="layout:descriptorParam" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="layout:descriptorAttrs"/>
+   </xs:complexType>
+</xs:element>
 
 </xs:schema>

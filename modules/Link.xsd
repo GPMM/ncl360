@@ -4,52 +4,30 @@ XML Schema for the NCL360 Language
 
 Public URI: http://www.ncl.org.br/NCL360/modules/Link.xsd
 Author: MultiSenS Lab - Immersive Multissensory Multimedia Applications and Spaces Lab
-Revision: 02/10/2024
+Revision: 08/10/2024
 -->
 
-<xs:schema targetNamespace="http://www.ncl.org.br/NCL360/Link"
+<xs:schema targetNamespace="http://www.ncl.org.br/NCL360/NCL360Link"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:link="http://www.ncl.org.br/NCL360/Link"
+           xmlns:link="http://www.ncl.org.br/NCL360/NCL360Link"
+           xmlns:connectorCommonPart="http://www.ncl.org.br/NCL4.0/ConnectorCommonPart"
+           xmlns:ncllink="http://www.ncl.org.br/NCL4.0/Linking"
            elementFormDefault="qualified">
 
 
-<xs:simpleType name="CONDTR">
-   <xs:restriction base="xs:string">
-      <xs:enumeration value="onBegin"/>
-      <xs:enumeration value="onEnd"/>
-	   <xs:enumeration value="onAbort"/>
-      <xs:enumeration value="onPause"/>
-      <xs:enumeration value="onResume"/>
-      <xs:enumeration value="onEndPreparation"/>
-      <xs:enumeration value="onBeginView"/>
-      <xs:enumeration value="onEndView"/>
-   </xs:restriction>
-</xs:simpleType>
 
-<xs:simpleType name="ACTTR">
-   <xs:restriction base="xs:string">
-      <xs:enumeration value="start"/>
-      <xs:enumeration value="stop"/>
-      <xs:enumeration value="abort"/>
-      <xs:enumeration value="pause"/>
-      <xs:enumeration value="resume"/>
-      <xs:enumeration value="prepare"/>
-   </xs:restriction>
-</xs:simpleType>
+<xs:import namespace="http://www.ncl.org.br/NCL4.0/Linking"
+           schemaLocation="http://www.ncl.org.br/NCL4.0/modules/NCL30Linking.xsd"/>
 
 
 
-<xs:complexType name="TriggerConditionType">
-   <xs:attribute name="component" type="xs:IDREF" use="required"/>
-   <xs:attribute name="interface" type="xs:IDREF" use="optional"/>
-   <xs:attribute name="role" type="link:CONDTR" use="required"/>
-</xs:complexType>
-
-<xs:complexType name="actionType">
-   <xs:attribute name="component" type="xs:IDREF" use="required"/>
-   <xs:attribute name="interface" type="xs:IDREF" use="optional"/>
-   <xs:attribute name="role" type="link:ACTTR" use="required"/>
-   <xs:attribute name="delay" type="xs:nonNegativeInteger" use="optional" default="0"/>
-</xs:complexType>
+<xs:complexType name="linkType">
+   <xs:sequence>
+      <xs:element ref="ncllink:linkParam" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element ref="ncllink:bind" minOccurs="2" maxOccurs="unbounded"/>
+   </xs:sequence>
+   <xs:attribute name="id" type="xs:ID" use="optional"/>
+   <xs:attribute name="xconnector" type="xs:IDREF" use="optional"/>
+ </xs:complexType>
 
 </xs:schema>

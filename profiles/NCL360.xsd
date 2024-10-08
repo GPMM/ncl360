@@ -4,77 +4,104 @@ XML Schema for the NCL360 Language
 
 Public URI: http://www.ncl.org.br/NCL360/profiles/NCL360.xsd
 Author: MultiSenS Lab - Immersive Multissensory Multimedia Applications and Spaces Lab
-Revision: 26/09/2024
+Revision: 08/10/2024
 -->
 
 <xs:schema targetNamespace="http://www.ncl.org.br/NCL360/NCL360Profile"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:profile="http://www.ncl.org.br/NCL360/NCL360Profile"
-           xmlns:layout="http://www.ncl.org.br/NCL360/Layout"
-           xmlns:link="http://www.ncl.org.br/NCL360/Link"
-           xmlns:media="http://www.ncl.org.br/NCL360/Media"
+           xmlns:layout="http://www.ncl.org.br/NCL360/NCL360Layout"
+           xmlns:media="http://www.ncl.org.br/NCL360/NCL360Media"
+           xmlns:link="http://www.ncl.org.br/NCL360/NCL360Link"
+           xmlns:nclconnector="http://www.ncl.org.br/NCL4.0/CausalConnectorFunctionality"
+           xmlns:nclport="http://www.ncl.org.br/NCL4.0/CompositeNodeInterface"
+           xmlns:ncllink="http://www.ncl.org.br/NCL4.0/Linking"
            elementFormDefault="qualified">
 
 <!-- import the definitions in the modules namespaces -->
-<xs:import namespace="http://www.ncl.org.br/NCL360/Media"
-           schemaLocation="../modules/Media.xsd"/>
-<xs:import namespace="http://www.ncl.org.br/NCL360/Link"
-           schemaLocation="../modules/Link.xsd"/>
-<xs:import namespace="http://www.ncl.org.br/NCL360/Layout"
+<xs:import namespace="http://www.ncl.org.br/NCL360/NCL360Layout"
            schemaLocation="../modules/Layout.xsd"/>
+<xs:import namespace="http://www.ncl.org.br/NCL360/NCL360Media"
+           schemaLocation="../modules/Media.xsd"/>
+<xs:import namespace="http://www.ncl.org.br/NCL360/NCL360Link"
+           schemaLocation="../modules/Link.xsd"/>
+<xs:import namespace="http://www.ncl.org.br/NCL4.0/CausalConnectorFunctionality"
+           schemaLocation="http://www.ncl.org.br/NCL4.0/modules/NCL30CausalConnectorFunctionality.xsd"/>
+<xs:import namespace="http://www.ncl.org.br/NCL4.0/CompositeNodeInterface"
+           schemaLocation="http://www.ncl.org.br/NCL4.0/modules/NCL30CompositeNodeInterface.xsd"/>
+<xs:import namespace="http://www.ncl.org.br/NCL4.0/Linking"
+           schemaLocation="http://www.ncl.org.br/NCL4.0/modules/NCL30Linking.xsd"/>
 
 
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- Layout elements -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<xs:element name="region" substitutionGroup="layout:region"/>
+<xs:element name="descriptor" substitutionGroup="layout:descriptor"/>
+<xs:element name="descriptorParam" substitutionGroup="layout:descriptorParam"/>
 
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- Connector elements -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<xs:element name="causalConnector" substitutionGroup="nclconnector:causalConnector"/>
+<xs:element name="connectorParam" substitutionGroup="nclconnector:connectorParam"/>
+<xs:element name="simpleCondition" substitutionGroup="nclconnector:simpleCondition"/>
+<xs:element name="compoundCondition" substitutionGroup="nclconnector:compoundCondition"/>
+<xs:element name="simpleAction" substitutionGroup="nclconnector:simpleAction"/>
+<xs:element name="compoundAction" substitutionGroup="nclconnector:compoundAction"/>
+<xs:element name="assessmentStatement" substitutionGroup="nclconnector:assessmentStatement"/>
+<xs:element name="attributeAssessment" substitutionGroup="nclconnector:attributeAssessment"/>
+<xs:element name="valueAssessment" substitutionGroup="nclconnector:valueAssessment"/>
+<xs:element name="compoundStatement" substitutionGroup="nclconnector:compoundStatement"/>
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- Head element -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <xs:complexType name="headType">
    <xs:sequence>
-      <xs:element name="region" type="layout:regionType" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="descriptor" minOccurs="0" maxOccurs="unbounded">
-         <xs:complexType>
-            <xs:sequence>
-               <xs:element name="descriptorParam" type="layout:descriptorParamType" minOccurs="0" maxOccurs="unbounded"/>
-            </xs:sequence>
-            <xs:attributeGroup ref="layout:descriptorAttrs"/>
-         </xs:complexType>
-      </xs:element>
+      <xs:element ref="profile:region" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element ref="profile:descriptor" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element ref="profile:causalConnector" minOccurs="0" maxOccurs="unbounded"/>
    </xs:sequence>
 </xs:complexType>
 
 
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- Media elements -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<xs:element name="media" substitutionGroup="media:media"/>
+<xs:element name="area" substitutionGroup="media:area"/>
+<xs:element name="property" substitutionGroup="media:property"/>
 
-<xs:complexType name="portType">
-   <xs:attribute name="component" type="xs:IDREF" use="required"/>
-   <xs:attribute name="interface" type="xs:IDREF" use="optional"/>
-</xs:complexType>
 
-<xs:element name="media">
-   <xs:complexType>
-      <xs:sequence>
-         <xs:element name="area" type="media:areaType" minOccurs="0" maxOccurs="unbounded"/>
-      </xs:sequence>
-      <xs:attributeGroup ref="media:mediaAttrs"/>
-   </xs:complexType>
-</xs:element>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- Link elements -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<xs:element name="link" type="link:linkType"/>
+<xs:element name="bind" substitutionGroup="ncllink:bind"/>
+<xs:element name="linkParam" substitutionGroup="ncllink:linkParam"/>
+<xs:element name="bindParam" substitutionGroup="ncllink:bindParam"/>
 
-<xs:element name="link">
-   <xs:complexType>
-      <xs:sequence>
-         <xs:element name="bind" type="link:TriggerConditionType" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="bind" type="link:actionType" minOccurs="1" maxOccurs="unbounded"/>
-      </xs:sequence>
-   </xs:complexType>
-</xs:element>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- Body element -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<xs:element name="port" type="nclport:compositeNodePortPrototype"/>
 
 <xs:complexType name="bodyType">
    <xs:sequence>
-      <xs:element name="port" type="profile:portType" minOccurs="0"  maxOccurs="unbounded"/>
+      <xs:element ref="profile:port" minOccurs="0"  maxOccurs="unbounded"/>
       <xs:element ref="profile:media" minOccurs="1" maxOccurs="unbounded"/>
-
       <xs:element ref="profile:link" minOccurs="0" maxOccurs="unbounded"/>
    </xs:sequence>
 </xs:complexType>
 
 
-
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- Root element -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <xs:element name="ncl360">
    <xs:complexType>
       <xs:sequence>

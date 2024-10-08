@@ -4,27 +4,65 @@ XML Schema for the NCL360 Language
 
 Public URI: http://www.ncl.org.br/NCL360/modules/Media.xsd
 Author: MultiSenS Lab - Immersive Multissensory Multimedia Applications and Spaces Lab
-Revision: 02/10/2024
+Revision: 08/10/2024
 -->
 
-<xs:schema targetNamespace="http://www.ncl.org.br/NCL360/Media"
+<xs:schema targetNamespace="http://www.ncl.org.br/NCL360/NCL360Media"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:media="http://www.ncl.org.br/NCL360/Media"
+           xmlns:media="http://www.ncl.org.br/NCL360/NCL360Media"
+           xmlns:nclproperty="http://www.ncl.org.br/NCL4.0/PropertyAnchor"
+           xmlns:nclarea="http://www.ncl.org.br/NCL4.0/MediaContentAnchor"
+           xmlns:nclmedia="http://www.ncl.org.br/NCL4.0/Media"
            elementFormDefault="qualified">
 
 
 
+<xs:import namespace="http://www.ncl.org.br/NCL4.0/PropertyAnchor"
+           schemaLocation="http://www.ncl.org.br/NCL4.0/modules/NCL30PropertyAnchor.xsd"/>
+<xs:import namespace="http://www.ncl.org.br/NCL4.0/MediaContentAnchor"
+           schemaLocation="http://www.ncl.org.br/NCL4.0/modules/NCL30MediaContentAnchor.xsd"/>
+<xs:import namespace="http://www.ncl.org.br/NCL4.0/Media"
+           schemaLocation="http://www.ncl.org.br/NCL4.0/modules/NCL30Media.xsd"/>
+
+
+<xs:complexType name="propertyType">
+   <xs:complexContent>
+      <xs:restriction base="nclproperty:propertyAnchorPrototype">
+         <xs:attribute name="externable" type="xs:boolean" use="prohibited"/>
+      </xs:restriction>
+   </xs:complexContent>
+</xs:complexType>
+
+
 <xs:complexType name="areaType">
    <xs:attribute name="id" type="xs:ID" use="required"/>
-   <xs:attribute name="begin" type="xs:string" use="optional"/>
-   <xs:attribute name="end" type="xs:string" use="optional"/>
+   <xs:attributeGroup ref="nclarea:temporalAnchorAttrs"/>
 </xs:complexType>
 
 
 <xs:attributeGroup name="mediaAttrs">
    <xs:attribute name="id" type="xs:ID" use="required"/>
    <xs:attribute name="src" type="xs:anyURI" use="required"/>
-   <xs:attribute name="descriptor" type="xs:string" use="required"/>
+   <xs:attribute name="descriptor" type="xs:IDREF" use="required"/>
 </xs:attributeGroup>
+
+
+<xs:group name="mediaElems">
+   <xs:sequence>
+      <xs:element ref="media:area" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element ref="media:property" minOccurs="0" maxOccurs="unbounded"/>
+   </xs:sequence>
+</xs:group>
+
+
+<xs:element name="area" type="media:areaType"/>
+<xs:element name="property" type="media:propertyType"/>
+
+<xs:element name="media">
+   <xs:complexType>
+      <xs:group ref="media:mediaElems"/>
+      <xs:attributeGroup ref="media:mediaAttrs"/>
+   </xs:complexType>
+</xs:element>
 
 </xs:schema>
