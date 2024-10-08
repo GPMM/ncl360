@@ -62,7 +62,7 @@ Revision: 08/10/2024
 <xs:complexType name="headType">
    <xs:sequence>
       <xs:element ref="profile:region" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element ref="profile:descriptor" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element ref="profile:descriptor" minOccurs="1" maxOccurs="unbounded"/>
       <xs:element ref="profile:causalConnector" minOccurs="0" maxOccurs="unbounded"/>
    </xs:sequence>
 </xs:complexType>
